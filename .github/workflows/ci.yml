@@ -20,6 +20,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        profile: minimal
+        components: clippy
+
     - name: Install cygwin base packages with chocolatey
       if: matrix.os == 'windows-latest'
       run: |
@@ -34,13 +41,6 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         echo '::set-env name=PATH::C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin'
-
-    - name: Install Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        profile: minimal
-        components: clippy
 
     - name: Build Debug
       run: |
